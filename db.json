@@ -513,5 +513,13 @@
         "https://i.dummyjson.com/data/products/28/thumbnail.jpg"
       ]
     }
+  ],
+  "categories": [
+    "smartphones",
+    "laptops",
+    "fragrances",
+    "skincare",
+    "groceries",
+    "home-decoration"
   ]
 }

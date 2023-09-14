@@ -14,4 +14,8 @@ export class ProductService {
   getProducts(): Observable<IProduct[]> {
     return this.http.get<IProduct[]>(this.dbUrl);
   }
+
+  searchProducts(): void {
+    console.log('search product works');
+  }
 }

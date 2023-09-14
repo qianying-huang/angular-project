@@ -1,0 +1,19 @@
+<ng-container *ngIf="product$ | async as product; else notFoundMessage">
+  <div class="product-detail">
+    <img
+      [src]="product.thumbnail"
+      alt="{{ product.title }}"
+      class="product-image"
+    />
+    <h2>{{ product.title }}</h2>
+    <h5>Brand: {{ product.brand }}</h5>
+    <h5>Category: {{ product.category }}</h5>
+    <p>{{ product.description }}</p>
+    <p><strong>Price:</strong> ${{ product.price }}</p>
+    <p><strong>Rating:</strong> {{ product.rating }} out of 5</p>
+  </div>
+</ng-container>
+
+<ng-template #notFoundMessage>
+  <div class="error-message">Product not found.</div>
+</ng-template>

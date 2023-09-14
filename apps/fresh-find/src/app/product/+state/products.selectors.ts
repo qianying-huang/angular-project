@@ -4,6 +4,7 @@ import {
   ProductsState,
   productsAdapter,
 } from './products.reducer';
+import { IProduct } from '../products.models';
 
 // Lookup the 'Products' feature state managed by NgRx
 export const selectProductsState =
@@ -26,18 +27,30 @@ export const selectAllProducts = createSelector(
   (state: ProductsState) => selectAll(state)
 );
 
-export const selectProductsEntities = createSelector(
-  selectProductsState,
-  (state: ProductsState) => selectEntities(state)
-);
+// export const selectProductsEntities = createSelector(
+//   selectProductsState,
+//   (state: ProductsState) => selectEntities(state)
+// );
 
 export const selectSelectedId = createSelector(
   selectProductsState,
   (state: ProductsState) => state.selectedId
 );
 
-export const selectEntity = createSelector(
-  selectProductsEntities,
+export const selectSelectedProduct = createSelector(
+  selectAllProducts,
   selectSelectedId,
-  (entities, selectedId) => (selectedId ? entities[selectedId] : undefined)
+  (products, selectedId) =>
+    selectedId !== undefined ? products[selectedId] : undefined
+);
+
+export const selectFilteredProducts = createSelector(
+  selectAllProducts, // get all products
+  selectProductsState, // get the current state which contains the query
+  (products: IProduct[], state: ProductsState) => {
+    const query = state.query.toLowerCase();
+    return products.filter((product) =>
+      product.title.toLowerCase().includes(query)
+    );
+  }
 );

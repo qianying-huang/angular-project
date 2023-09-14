@@ -9,9 +9,10 @@ import * as fromProducts from './+state/products.reducer';
 import { ProductsEffects } from './+state/products.effects';
 import { ProductsFacade } from './+state/products.facade';
 import { ProductService } from './product.service';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 @NgModule({
-  declarations: [ProductListComponent],
+  declarations: [ProductListComponent, ProductDetailComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,

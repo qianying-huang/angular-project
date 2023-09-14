@@ -10,13 +10,20 @@ import { ProductsFacade } from '../+state/products.facade';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductListComponent implements OnInit {
-  public allProduct$: Observable<IProduct[]>;
+  public filteredProducts$: Observable<IProduct[]>;
 
   constructor(private productsFacade: ProductsFacade) {
-    this.allProduct$ = this.productsFacade.allProducts$;
+    this.filteredProducts$ = this.productsFacade.filteredProducts$;
+    // this.filteredProducts$ =
+    //   this.productsFacade.allProducts$,
+    //   this.productsFacade.query$
   }
 
   ngOnInit(): void {
     this.productsFacade.loadProducts();
+  }
+
+  doSearch(query: string): void {
+    this.productsFacade.doSearch(query);
   }
 }

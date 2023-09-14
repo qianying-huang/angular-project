@@ -1,9 +1,30 @@
+<div class="search-bar">
+  <input
+    #query
+    type="text"
+    (input)="doSearch(query.value)"
+    placeholder="Search Product"
+  />
+</div>
+<!-- <div class="center-container">
+  <label for="categories">Filter by:</label>
+  <select name="categories" id="categories">
+    <option selected>Categories</option>
+    <option value="volvo">Volvo</option>
+    <option value="saab">Saab</option>
+    <option value="mercedes">Mercedes</option>
+    <option value="audi">Audi</option>
+  </select>
+</div> -->
 <div class="card-container">
-  <ng-container *ngFor="let product of allProduct$ | async">
+  <ng-container *ngFor="let product of filteredProducts$ | async">
     <div class="card">
       <img [src]="product.thumbnail" class="card-img-top" alt="..." />
       <div class="card-body">
-        <h5 class="card-title">{{ product.title }}</h5>
+        <h5 class="card-title">
+          <a [routerLink]="['/products', product.id]">{{ product.title }}</a>
+        </h5>
+
         <p class="card-text">${{ product.price }}</p>
       </div>
       <a href="#" class="btn btn-primary">Add to Cart</a>

@@ -6,9 +6,10 @@ import * as ProductsActions from './products.actions';
 export const PRODUCTS_FEATURE_KEY = 'products';
 
 export interface ProductsState extends EntityState<IProduct> {
-  selectedId?: string | number; // which Products record has been selected
+  selectedId?: number; // which Products record has been selected
   loaded: boolean; // has the Products list been loaded
   error?: string | null; // last known error (if any)
+  query: string;
 }
 
 export interface ProductsPartialState {
@@ -22,6 +23,7 @@ export const initialProductsState: ProductsState =
   productsAdapter.getInitialState({
     // set initial required properties
     loaded: false,
+    query: '',
   });
 
 const reducer = createReducer(
@@ -37,7 +39,12 @@ const reducer = createReducer(
   on(ProductsActions.loadProductsFailure, (state, { error }) => ({
     ...state,
     error,
-  }))
+  })),
+  on(ProductsActions.selectProduct, (state, { id }) => ({
+    ...state,
+    selectedId: id,
+  })),
+  on(ProductsActions.searchProduct, (state, { query }) => ({ ...state, query }))
 );
 
 export function productsReducer(
