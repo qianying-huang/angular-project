@@ -34,7 +34,12 @@ export const selectAllProducts = createSelector(
 
 export const selectSelectedId = createSelector(
   selectProductsState,
-  (state: ProductsState) => state.selectedId
+  (state: ProductsState) => (state.selectedId ? state.selectedId : 0)
+);
+
+export const selectQuery = createSelector(
+  selectProductsState,
+  (state: ProductsState) => state.query
 );
 
 export const selectSelectedProduct = createSelector(
@@ -42,15 +47,4 @@ export const selectSelectedProduct = createSelector(
   selectSelectedId,
   (products, selectedId) =>
     selectedId !== undefined ? products[selectedId] : undefined
-);
-
-export const selectFilteredProducts = createSelector(
-  selectAllProducts, // get all products
-  selectProductsState, // get the current state which contains the query
-  (products: IProduct[], state: ProductsState) => {
-    const query = state.query.toLowerCase();
-    return products.filter((product) =>
-      product.title.toLowerCase().includes(query)
-    );
-  }
 );

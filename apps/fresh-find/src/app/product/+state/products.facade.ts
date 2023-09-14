@@ -11,7 +11,8 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class ProductsFacade {
   public allProducts$: Observable<IProduct[]>;
-  public filteredProducts$: Observable<IProduct[]>;
+  public query$: Observable<string>;
+  public productId$: Observable<number>;
 
   public selectedProduct$: Observable<IProduct | undefined> = this.store.pipe(
     select(ProductsSelectors.selectSelectedProduct)
@@ -21,8 +22,9 @@ export class ProductsFacade {
     this.allProducts$ = this.store.pipe(
       select(ProductsSelectors.selectAllProducts)
     );
-    this.filteredProducts$ = this.store.pipe(
-      select(ProductsSelectors.selectFilteredProducts)
+    this.query$ = this.store.pipe(select(ProductsSelectors.selectQuery));
+    this.productId$ = this.store.pipe(
+      select(ProductsSelectors.selectSelectedId)
     );
   }
 
