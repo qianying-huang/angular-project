@@ -7,15 +7,19 @@ import { IProduct } from './products.models';
   providedIn: 'root',
 })
 export class ProductService {
-  private dbUrl = 'http://localhost:3000/products';
+  private dbUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>(this.dbUrl);
+    return this.http.get<IProduct[]>(`${this.dbUrl}/products`);
   }
 
-  searchProducts(): void {
-    console.log('search product works');
+  getCategories(): Observable<string[]> {
+    return this.http.get<string[]>(`${this.dbUrl}/categories`);
   }
+
+  // searchProducts(): void {
+  //   console.log('search product works');
+  // }
 }

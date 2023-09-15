@@ -27,4 +27,20 @@ export class ProductsEffects {
       )
     )
   );
+
+  loadCategories$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProductsActions.loadCategories),
+      mergeMap(() =>
+        this.productService.getCategories().pipe(
+          map((categories) =>
+            ProductsActions.loadCategoriesSuccess({ categories })
+          ),
+          catchError((error) =>
+            of(ProductsActions.loadCategoriesFailure({ error }))
+          )
+        )
+      )
+    )
+  );
 }

@@ -13,25 +13,29 @@ import { ProductsFacade } from '../+state/products.facade';
 })
 export class ProductListComponent implements OnInit {
   public filteredProducts$: Observable<IProduct[]>;
+  public categories$: Observable<string[]>;
 
   constructor(private productsFacade: ProductsFacade) {
     this.filteredProducts$ = combineLatest([
       this.productsFacade.allProducts$,
       this.productsFacade.query$,
+      this.productsFacade.selectedCategory$,
     ]).pipe(
-      map(([products, query]) => {
-        if (!query) {
-          return products;
-        }
-        return products.filter((product) =>
-          product.title.toLowerCase().includes(query.toLowerCase())
+      map(([products, query, selectedCategory]) => {
+        return products.filter(
+          (product) =>
+            product.title.toLowerCase().includes(query.toLowerCase()) &&
+            (!selectedCategory || product.category === selectedCategory)
         );
       })
     );
+
+    this.categories$ = this.productsFacade.categories$;
   }
 
   ngOnInit(): void {
     this.productsFacade.loadProducts();
+    this.productsFacade.loadCategories();
   }
 
   doSearch(query: string): void {
@@ -40,5 +44,9 @@ export class ProductListComponent implements OnInit {
 
   selectProduct(id: number): void {
     this.productsFacade.selectProduct(id);
+  }
+
+  selectCategory(category: string): void {
+    this.productsFacade.selectCategory(category);
   }
 }

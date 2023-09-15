@@ -6,16 +6,20 @@
     placeholder="Search Product"
   />
 </div>
-<!-- <div class="center-container">
-  <label for="categories">Filter by:</label>
-  <select name="categories" id="categories">
-    <option selected>Categories</option>
-    <option value="volvo">Volvo</option>
-    <option value="saab">Saab</option>
-    <option value="mercedes">Mercedes</option>
-    <option value="audi">Audi</option>
+<div class="center-container">
+  <label for="categories">Filter by Category:</label>
+  <select
+    name="categories"
+    id="categories"
+    #level
+    (change)="selectCategory(level.value)"
+  >
+    <option selected value="">All</option>
+    <ng-container *ngFor="let category of categories$ | async">
+      <option value="{{ category }}">{{ category }}</option>
+    </ng-container>
   </select>
-</div> -->
+</div>
 <div class="card-container">
   <ng-container *ngFor="let product of filteredProducts$ | async">
     <div class="card">

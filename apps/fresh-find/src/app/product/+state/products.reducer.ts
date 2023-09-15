@@ -10,6 +10,8 @@ export interface ProductsState extends EntityState<IProduct> {
   loaded: boolean; // has the Products list been loaded
   error?: string | null; // last known error (if any)
   query: string;
+  categories: string[];
+  selectedCategory: string;
 }
 
 export interface ProductsPartialState {
@@ -24,6 +26,8 @@ export const initialProductsState: ProductsState =
     // set initial required properties
     loaded: false,
     query: '',
+    categories: [],
+    selectedCategory: '',
   });
 
 const reducer = createReducer(
@@ -40,9 +44,21 @@ const reducer = createReducer(
     ...state,
     error,
   })),
+  on(ProductsActions.loadCategoriesSuccess, (state, { categories }) => ({
+    ...state,
+    categories: categories,
+  })),
+  on(ProductsActions.loadCategoriesFailure, (state, { error }) => ({
+    ...state,
+    error,
+  })),
   on(ProductsActions.selectProduct, (state, { id }) => ({
     ...state,
     selectedId: id,
+  })),
+  on(ProductsActions.selectCategory, (state, { category }) => ({
+    ...state,
+    selectedCategory: category,
   })),
   on(ProductsActions.searchProduct, (state, { query }) => ({ ...state, query }))
 );

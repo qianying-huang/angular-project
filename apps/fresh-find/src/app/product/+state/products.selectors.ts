@@ -48,3 +48,13 @@ export const selectSelectedProduct = createSelector(
   (products, selectedId) =>
     selectedId !== undefined ? products[selectedId] : undefined
 );
+
+export const selectCategories = createSelector(
+  selectProductsState,
+  (state: ProductsState) => state.categories
+);
+
+export const selectSelectedCategory = createSelector(
+  selectProductsState,
+  (state: ProductsState) => state.selectedCategory
+);

@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 import { IProduct } from '../products.models';
 
-export const loadProducts = createAction('[Products Page] Init');
+export const loadProducts = createAction('[Products Page] Load products');
 
 export const loadProductsSuccess = createAction(
   '[Products/API] Load Products Success',
@@ -13,9 +13,26 @@ export const loadProductsFailure = createAction(
   props<{ error: any }>()
 );
 
+export const loadCategories = createAction('[Products Page] Load categories');
+
+export const loadCategoriesSuccess = createAction(
+  '[Products Page] Load categories success',
+  props<{ categories: string[] }>()
+);
+
+export const loadCategoriesFailure = createAction(
+  '[Products Page] Load categories failure',
+  props<{ error: any }>()
+);
+
 export const selectProduct = createAction(
   '[Product Detail] Select Product',
   props<{ id: number }>()
+);
+
+export const selectCategory = createAction(
+  '[Product Detail] Select Category',
+  props<{ category: string }>()
 );
 export const searchProduct = createAction(
   '[Product Filter] Search Product',
