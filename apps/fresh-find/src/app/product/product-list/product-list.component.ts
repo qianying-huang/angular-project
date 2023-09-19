@@ -1,9 +1,8 @@
-import { select } from '@ngrx/store';
 import { IProduct } from './../products.models';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable, combineLatest, filter, map, take } from 'rxjs';
-
 import { ProductsFacade } from '../+state/products.facade';
+import { CartsFacade } from '../../cart/+state/carts.facade';
 
 @Component({
   selector: 'angular-project-product-list',
@@ -15,7 +14,10 @@ export class ProductListComponent implements OnInit {
   public filteredProducts$: Observable<IProduct[]>;
   public categories$: Observable<string[]>;
 
-  constructor(private productsFacade: ProductsFacade) {
+  constructor(
+    private productsFacade: ProductsFacade,
+    private cartFacade: CartsFacade
+  ) {
     this.filteredProducts$ = combineLatest([
       this.productsFacade.allProducts$,
       this.productsFacade.query$,
@@ -48,5 +50,9 @@ export class ProductListComponent implements OnInit {
 
   selectCategory(category: string): void {
     this.productsFacade.selectCategory(category);
+  }
+
+  addToCart(product: IProduct): void {
+    this.cartFacade.addProductToCart(product);
   }
 }

@@ -72,3 +72,12 @@ select:focus {
   justify-content: center;
   margin: 20px;
 }
+.shopping-cart-icon {
+  position: fixed;
+  top: 15px;
+  right: 30px;
+  z-index: 1000;
+}
+a {
+  text-decoration: none;
+}

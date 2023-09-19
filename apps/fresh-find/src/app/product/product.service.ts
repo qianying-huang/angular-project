@@ -18,8 +18,4 @@ export class ProductService {
   getCategories(): Observable<string[]> {
     return this.http.get<string[]>(`${this.dbUrl}/categories`);
   }
-
-  // searchProducts(): void {
-  //   console.log('search product works');
-  // }
 }

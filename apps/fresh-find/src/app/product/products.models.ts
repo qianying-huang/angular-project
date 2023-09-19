@@ -7,4 +7,5 @@ export interface IProduct {
   brand: string;
   category: string;
   thumbnail: string;
+  quantity?: number;
 }
