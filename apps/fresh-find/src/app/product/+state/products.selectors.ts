@@ -43,10 +43,8 @@ export const selectQuery = createSelector(
 );
 
 export const selectSelectedProduct = createSelector(
-  selectAllProducts,
-  selectSelectedId,
-  (products, selectedId) =>
-    selectedId !== undefined ? products[selectedId] : undefined
+  selectProductsState,
+  (state: ProductsState) => state.selectedProduct
 );
 
 export const selectCategories = createSelector(

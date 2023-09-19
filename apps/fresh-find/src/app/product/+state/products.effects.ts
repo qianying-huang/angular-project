@@ -43,4 +43,20 @@ export class ProductsEffects {
       )
     )
   );
+
+  selectProduct$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(ProductsActions.selectProduct),
+      switchMap((action) =>
+        this.productService.getProductDetail(action.id).pipe(
+          map((selectedProduct) =>
+            ProductsActions.selectProductSuccess({ selectedProduct })
+          ),
+          catchError((error) =>
+            of(ProductsActions.selectProductFailure({ error }))
+          )
+        )
+      )
+    )
+  );
 }

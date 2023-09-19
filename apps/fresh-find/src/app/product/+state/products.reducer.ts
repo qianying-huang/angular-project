@@ -1,6 +1,6 @@
 import { IProduct } from './../products.models';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { createReducer, on, Action } from '@ngrx/store';
+import { createReducer, on, Action, select } from '@ngrx/store';
 import * as ProductsActions from './products.actions';
 
 export const PRODUCTS_FEATURE_KEY = 'products';
@@ -12,6 +12,7 @@ export interface ProductsState extends EntityState<IProduct> {
   query: string;
   categories: string[];
   selectedCategory: string;
+  selectedProduct?: IProduct;
 }
 
 export interface ProductsPartialState {
@@ -55,6 +56,14 @@ const reducer = createReducer(
   on(ProductsActions.selectProduct, (state, { id }) => ({
     ...state,
     selectedId: id,
+  })),
+  on(ProductsActions.selectProductSuccess, (state, { selectedProduct }) => ({
+    ...state,
+    selectedProduct: selectedProduct,
+  })),
+  on(ProductsActions.selectProductFailure, (state, { error }) => ({
+    ...state,
+    error,
   })),
   on(ProductsActions.selectCategory, (state, { category }) => ({
     ...state,

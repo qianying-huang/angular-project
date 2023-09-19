@@ -15,6 +15,10 @@ export class ProductService {
     return this.http.get<IProduct[]>(`${this.dbUrl}/products`);
   }
 
+  getProductDetail(id: number): Observable<IProduct> {
+    return this.http.get<IProduct>(`${this.dbUrl}/products/${id}`);
+  }
+
   getCategories(): Observable<string[]> {
     return this.http.get<string[]>(`${this.dbUrl}/categories`);
   }

@@ -30,6 +30,16 @@ export const selectProduct = createAction(
   props<{ id: number }>()
 );
 
+export const selectProductSuccess = createAction(
+  '[Product Detail] Select Product success',
+  props<{ selectedProduct: IProduct }>()
+);
+
+export const selectProductFailure = createAction(
+  '[Product Detail] Select Product failure',
+  props<{ error: any }>()
+);
+
 export const selectCategory = createAction(
   '[Product Detail] Select Category',
   props<{ category: string }>()
