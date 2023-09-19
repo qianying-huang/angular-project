@@ -13,6 +13,7 @@ import { CartsFacade } from '../../cart/+state/carts.facade';
 export class ProductListComponent implements OnInit {
   public filteredProducts$: Observable<IProduct[]>;
   public categories$: Observable<string[]>;
+  public cartCount$: Observable<number>;
 
   constructor(
     private productsFacade: ProductsFacade,
@@ -33,6 +34,7 @@ export class ProductListComponent implements OnInit {
     );
 
     this.categories$ = this.productsFacade.categories$;
+    this.cartCount$ = this.cartFacade.cartCount$;
   }
 
   ngOnInit(): void {

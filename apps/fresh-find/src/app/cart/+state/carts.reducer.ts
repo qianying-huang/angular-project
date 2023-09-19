@@ -11,6 +11,7 @@ export interface CartsState extends EntityState<ICart> {
   loaded: boolean; // has the Carts list been loaded
   error?: string | null; // last known error (if any)
   amountBeforeTax: number;
+  cartCount: number;
 }
 
 export interface CartsPartialState {
@@ -23,6 +24,7 @@ export const initialCartsState: CartsState = cartsAdapter.getInitialState({
   // set initial required properties
   loaded: false,
   amountBeforeTax: 0,
+  cartCount: 0,
 });
 
 const reducer = createReducer(
@@ -40,7 +42,7 @@ const reducer = createReducer(
     error,
   })),
   on(CartsActions.addProductToCartSuccess, (state, { product }) =>
-    cartsAdapter.addOne(product, state)
+    cartsAdapter.addOne(product, { ...state, cartCount: state.cartCount + 1 })
   )
 );
 

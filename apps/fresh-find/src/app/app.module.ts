@@ -11,6 +11,7 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import { productsReducer } from './product/+state/products.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 import { CartModule } from './cart/cart.module';
 
 const reducers = { products: productsReducer };
@@ -41,6 +42,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     HttpClientModule,
     FontAwesomeModule,
     CartModule,
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

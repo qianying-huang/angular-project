@@ -37,3 +37,8 @@ export const selectEntity = createSelector(
   selectSelectedId,
   (entities, selectedId) => (selectedId ? entities[selectedId] : undefined)
 );
+
+export const selectCartCount = createSelector(
+  selectCartsState,
+  (state: CartsState) => state.cartCount
+);

@@ -8,13 +8,10 @@ import { ICart } from '../carts.models';
   templateUrl: './cart-list.component.html',
   styleUrls: ['./cart-list.component.css'],
 })
-export class CartListComponent implements OnInit {
+export class CartListComponent {
   public cartProducts$: Observable<ICart[]>;
 
   constructor(private cartFacade: CartsFacade) {
     this.cartProducts$ = this.cartFacade.cartProducts$;
-  }
-  ngOnInit(): void {
-    this.cartFacade.loadCart();
   }
 }

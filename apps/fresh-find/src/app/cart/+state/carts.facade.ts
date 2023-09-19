@@ -12,11 +12,13 @@ import { ICart } from '../carts.models';
 @Injectable()
 export class CartsFacade {
   public cartProducts$: Observable<ICart[]>;
+  public cartCount$: Observable<number>;
 
   constructor(private store: Store<CartsState>) {
     this.cartProducts$ = this.store.pipe(
       select(CartsSelectors.selectAllCartProducts)
     );
+    this.cartCount$ = this.store.pipe(select(CartsSelectors.selectCartCount));
   }
 
   public addProductToCart(product: IProduct): void {
