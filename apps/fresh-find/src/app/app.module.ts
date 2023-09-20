@@ -8,11 +8,15 @@ import { EffectsModule } from '@ngrx/effects';
 import { PageShellComponent } from './page-shell.component';
 import { HttpClientModule } from '@angular/common/http';
 import { localStorageSync } from 'ngrx-store-localstorage';
-import { productsReducer } from './product/+state/products.reducer';
+import {
+  PRODUCTS_FEATURE_KEY,
+  productsReducer,
+} from './product/+state/products.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { CartModule } from './cart/cart.module';
+import { CARTS_FEATURE_KEY } from './cart/+state/carts.reducer';
 
 const reducers = { products: productsReducer };
 
@@ -21,7 +25,7 @@ export function localStorageSyncReducer(
   reducer: ActionReducer<any>
 ): ActionReducer<any> {
   return localStorageSync({
-    keys: ['products'],
+    keys: [PRODUCTS_FEATURE_KEY, CARTS_FEATURE_KEY],
     storage: sessionStorage,
     rehydrate: true,
   })(reducer);

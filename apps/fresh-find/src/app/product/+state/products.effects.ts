@@ -1,17 +1,19 @@
 import { Injectable, inject } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import { switchMap, catchError, of, mergeMap, map } from 'rxjs';
+import { switchMap, catchError, of, mergeMap, map, tap } from 'rxjs';
 import * as ProductsActions from './products.actions';
 import * as ProductsFeature from './products.reducer';
 import { ProductService } from '../product.service';
 import { ProductsFacade } from './products.facade';
+import { Route, Router } from '@angular/router';
 
 @Injectable()
 export class ProductsEffects {
   constructor(
     private actions$: Actions,
     private productService: ProductService,
-    private productsFacade: ProductsFacade
+    private productsFacade: ProductsFacade,
+    private router: Router
   ) {}
 
   loadProducts$ = createEffect(() =>
@@ -47,8 +49,8 @@ export class ProductsEffects {
   selectProduct$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductsActions.selectProduct),
-      switchMap((action) =>
-        this.productService.getProductDetail(action.id).pipe(
+      switchMap(({ id }) =>
+        this.productService.getProductDetail(id).pipe(
           map((selectedProduct) =>
             ProductsActions.selectProductSuccess({ selectedProduct })
           ),
@@ -58,5 +60,16 @@ export class ProductsEffects {
         )
       )
     )
+  );
+
+  selectProductSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(ProductsActions.selectProductSuccess),
+        tap(({ selectedProduct }) => {
+          this.router.navigateByUrl(`products/${selectedProduct.id}`);
+        })
+      ),
+    { dispatch: false }
   );
 }

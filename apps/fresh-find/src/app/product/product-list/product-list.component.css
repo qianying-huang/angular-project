@@ -73,23 +73,26 @@ select:focus {
   margin: 20px;
 }
 .shopping-cart-icon {
-  position: fixed;
-  top: 15px;
-  right: 50px;
-
   width: 35px;
   height: 35px;
 }
+
 a {
   text-decoration: none;
 }
 .cart-count {
   position: absolute;
-  top: 20px;
-  right: 30px;
+  top: -5px;
+  right: -15px;
   background: red;
   color: #fff;
   padding: 5px 10px;
   border-radius: 50%;
   font-size: 0.8em;
+  z-index: 1;
+}
+.shopping-cart-container {
+  position: fixed;
+  top: 15px;
+  right: 50px;
 }
