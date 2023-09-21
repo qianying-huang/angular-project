@@ -10,6 +10,7 @@ import { ProductsEffects } from './+state/products.effects';
 import { ProductsFacade } from './+state/products.facade';
 import { ProductService } from './product.service';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { CartModule } from '../cart/cart.module';
 
 @NgModule({
   declarations: [ProductListComponent, ProductDetailComponent],
@@ -21,6 +22,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
       fromProducts.productsReducer
     ),
     EffectsModule.forFeature([ProductsEffects]),
+    CartModule,
   ],
   providers: [ProductsFacade, ProductService],
 })

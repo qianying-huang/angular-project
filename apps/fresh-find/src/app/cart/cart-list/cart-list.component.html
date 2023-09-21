@@ -1,27 +1,30 @@
 <div class="container mt-4">
   <h1>Shopping Cart</h1>
   <hr />
-  <div *ngIf="!(cartProducts$ | async)?.length">
+  <div *ngIf="!(cartProductsDetails$ | async)?.length">
     <p>Your cart is empty.</p>
   </div>
   <div class="cart-list">
-    <ng-container *ngFor="let cartProduct of cartProducts$ | async">
-      <div class="card mb-3">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <img
-              [src]="cartProduct.thumbnail"
-              class="card-img"
-              alt="{{ cartProduct.title }}"
-            />
-          </div>
-          <div class="col-md-8">
-            <div class="card-body">
-              <h5 class="card-title">{{ cartProduct.title }}</h5>
+    <ng-container *ngFor="let cartProduct of cartProductsDetails$ | async">
+      <ng-container *ngIf="cartProduct">
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img
+                [src]="cartProduct.thumbnail"
+                class="card-img"
+                alt="{{ cartProduct.title }}"
+              />
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">id: {{ cartProduct.id }}</h5>
+                <h5 class="card-title">quantity: {{ cartProduct.quantity }}</h5>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </ng-container>
     </ng-container>
   </div>
 </div>

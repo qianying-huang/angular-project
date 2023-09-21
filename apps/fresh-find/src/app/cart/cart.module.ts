@@ -8,15 +8,16 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromCarts from './+state/carts.reducer';
 import { CartsEffects } from './+state/carts.effects';
 import { CartsFacade } from './+state/carts.facade';
+import { ProductsFacade } from '../product/+state/products.facade';
 
 @NgModule({
   declarations: [CartListComponent],
   imports: [
     CommonModule,
     CartRoutingModule,
-    StoreModule.forFeature(fromCarts.CARTS_FEATURE_KEY, fromCarts.cartsReducer),
+    StoreModule.forFeature(fromCarts.CARTS_FEATURE_KEY, fromCarts.cartReducer),
     EffectsModule.forFeature([CartsEffects]),
   ],
-  providers: [CartsFacade],
+  providers: [CartsFacade, ProductsFacade],
 })
 export class CartModule {}

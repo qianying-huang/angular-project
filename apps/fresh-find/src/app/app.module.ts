@@ -45,7 +45,6 @@ const metaReducers: Array<MetaReducer<any, any>> = [localStorageSyncReducer];
     EffectsModule.forRoot([]),
     HttpClientModule,
     FontAwesomeModule,
-    CartModule,
     RouterModule,
   ],
   providers: [],

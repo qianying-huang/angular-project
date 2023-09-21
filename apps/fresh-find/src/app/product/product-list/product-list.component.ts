@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Observable, combineLatest, filter, map, take } from 'rxjs';
 import { ProductsFacade } from '../+state/products.facade';
 import { CartsFacade } from '../../cart/+state/carts.facade';
+import { ICart } from '../../cart/carts.models';
 
 @Component({
   selector: 'angular-project-product-list',
@@ -55,6 +56,10 @@ export class ProductListComponent implements OnInit {
   }
 
   addToCart(product: IProduct): void {
-    this.cartFacade.addProductToCart(product);
+    const cartProduct: ICart = {
+      id: product.id,
+      quantity: 1,
+    };
+    this.cartFacade.addProductToCart(cartProduct);
   }
 }

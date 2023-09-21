@@ -7,6 +7,8 @@ export interface IProduct {
   brand: string;
   category: string;
   thumbnail: string;
-  quantity?: number;
   images: string[];
+}
+export interface IProductWithQuantity extends IProduct {
+  quantity?: number;
 }
