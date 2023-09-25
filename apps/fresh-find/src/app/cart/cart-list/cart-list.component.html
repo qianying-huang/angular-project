@@ -20,9 +20,25 @@
               <div class="card-body">
                 <h6 class="product-title">{{ cartProduct.title }}</h6>
                 <h6 class="product-info">Price: ${{ cartProduct.price }}</h6>
-                <h6 class="product-info">
-                  Quantity: {{ cartProduct.quantity }}
-                </h6>
+
+                <input
+                  #quantityInput
+                  [value]="cartProduct.quantity"
+                  type="number"
+                  min="1"
+                />
+                <button
+                  class="btn btn-primary"
+                  (click)="updateQuantity(cartProduct.id, +quantityInput.value)"
+                >
+                  Update
+                </button>
+                <button
+                  class="btn btn-danger"
+                  (click)="deleteProduct(cartProduct.id)"
+                >
+                  Delete
+                </button>
               </div>
             </div>
           </div>

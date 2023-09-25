@@ -94,5 +94,14 @@ export const cartReducer = createReducer(
       tax: tax,
       totalAmount: totalAmount,
     })
-  )
+  ),
+  on(CartsActions.deleteProductFromCart, (state, { productId }) => {
+    const updatedProducts = state.productsInCart.filter(
+      (product) => product.id !== productId
+    );
+    return {
+      ...state,
+      productsInCart: updatedProducts,
+    };
+  })
 );

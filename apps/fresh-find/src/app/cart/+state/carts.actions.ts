@@ -35,3 +35,7 @@ export const updateAmount = createAction(
   '[Cart] Update Amount Info',
   props<{ amountBeforeTax: number; tax: number; totalAmount: number }>()
 );
+export const deleteProductFromCart = createAction(
+  '[Cart] Delete Product',
+  props<{ productId: number }>()
+);

@@ -60,7 +60,8 @@ export class CartsEffects {
     this.actions$.pipe(
       ofType(
         CartsActions.addProductToCartSuccess,
-        CartsActions.updateProductQuantity
+        CartsActions.updateProductQuantity,
+        CartsActions.deleteProductFromCart
       ),
       withLatestFrom(
         this.cartFacade.cartProducts$,

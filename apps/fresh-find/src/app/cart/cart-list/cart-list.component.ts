@@ -50,4 +50,11 @@ export class CartListComponent {
     this.tax$ = this.cartFacade.tax$;
     this.totalAmount$ = this.cartFacade.totalAmount$;
   }
+
+  public updateQuantity(productId: number, currentQuantity: number): void {
+    this.cartFacade.updateProductQuantity(productId, currentQuantity);
+  }
+  public deleteProduct(productId: number): void {
+    this.cartFacade.deleteProductFromCart(productId);
+  }
 }

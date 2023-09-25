@@ -45,4 +45,19 @@ export class CartsFacade {
   private calculateCartCount(productsInCart: ICart[]): number {
     return productsInCart.reduce((sum, product) => sum + product.quantity, 0); //accumulator + currentValue, initialValue
   }
+
+  public updateProductQuantity(productId: number, newQuantity: number): void {
+    const updatedProduct: ICart = {
+      id: productId,
+      quantity: newQuantity,
+    };
+
+    this.store.dispatch(
+      CartActions.updateProductQuantity({ product: updatedProduct })
+    );
+  }
+
+  public deleteProductFromCart(productId: number): void {
+    this.store.dispatch(CartActions.deleteProductFromCart({ productId }));
+  }
 }
