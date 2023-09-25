@@ -11,6 +11,16 @@
   height: auto;
 }
 
-.card-title {
+.product-title {
   font-weight: 600;
+  font-size: large;
+}
+
+.product-info {
+  color: rgba(60, 86, 236, 0.751);
+}
+
+.amount {
+  margin-top: 50px;
+  text-align: right;
 }

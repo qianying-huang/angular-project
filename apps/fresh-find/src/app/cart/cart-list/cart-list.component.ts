@@ -15,6 +15,9 @@ export class CartListComponent {
   public cartProductsDetails$: Observable<
     Array<IProductWithQuantity | undefined>
   >;
+  public amountBeforeTax$: Observable<number>;
+  public tax$: Observable<number>;
+  public totalAmount$: Observable<number>;
 
   constructor(
     private cartFacade: CartsFacade,
@@ -42,5 +45,9 @@ export class CartListComponent {
         return result;
       })
     );
+
+    this.amountBeforeTax$ = this.cartFacade.amountBeforeTax$;
+    this.tax$ = this.cartFacade.tax$;
+    this.totalAmount$ = this.cartFacade.totalAmount$;
   }
 }

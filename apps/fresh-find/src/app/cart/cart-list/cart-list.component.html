@@ -18,13 +18,21 @@
             </div>
             <div class="col-md-8">
               <div class="card-body">
-                <h5 class="card-title">id: {{ cartProduct.id }}</h5>
-                <h5 class="card-title">quantity: {{ cartProduct.quantity }}</h5>
+                <h6 class="product-title">{{ cartProduct.title }}</h6>
+                <h6 class="product-info">Price: ${{ cartProduct.price }}</h6>
+                <h6 class="product-info">
+                  Quantity: {{ cartProduct.quantity }}
+                </h6>
               </div>
             </div>
           </div>
         </div>
       </ng-container>
     </ng-container>
+  </div>
+  <div class="amount">
+    <p><strong>Amount Before Tax:</strong> ${{ amountBeforeTax$ | async }}</p>
+    <p><strong>Tax:</strong> ${{ tax$ | async }}</p>
+    <p><strong>Total Amount:</strong> ${{ totalAmount$ | async }}</p>
   </div>
 </div>

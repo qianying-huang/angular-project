@@ -12,6 +12,9 @@ import { ICart } from '../carts.models';
 export class CartsFacade {
   public cartProducts$: Observable<ICart[]>;
   public cartCount$: Observable<number>;
+  public amountBeforeTax$: Observable<number>;
+  public tax$: Observable<number>;
+  public totalAmount$: Observable<number>;
 
   constructor(private store: Store<CartState>) {
     this.cartProducts$ = this.store.pipe(
@@ -19,6 +22,13 @@ export class CartsFacade {
     );
     this.cartCount$ = this.cartProducts$.pipe(
       map((products) => this.calculateCartCount(products))
+    );
+    this.amountBeforeTax$ = this.store.pipe(
+      select(CartSelectors.selectAmountBeforeTax)
+    );
+    this.tax$ = this.store.pipe(select(CartSelectors.selectTax));
+    this.totalAmount$ = this.store.pipe(
+      select(CartSelectors.selectTotalAmount)
     );
   }
 

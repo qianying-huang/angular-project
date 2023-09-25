@@ -1,23 +1,39 @@
-import { createReducer, on, Action } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 
 import * as CartsActions from './carts.actions';
 import { ICart } from '../carts.models';
+import { IProduct } from '../../product/products.models';
 
 export const CARTS_FEATURE_KEY = 'carts';
 
 export interface CartState {
   productsInCart: ICart[];
   amountBeforeTax: number;
+  tax: number;
+  totalAmount: number;
   loaded: boolean;
   error?: string | null;
-  // cartCount: number;
 }
 
 export const initialCartState: CartState = {
   productsInCart: [],
   amountBeforeTax: 0,
+  tax: 0,
+  totalAmount: 0,
   loaded: false,
-  // cartCount: 0,
+};
+
+const calculateAmountBeforeTax = (
+  cartProducts: ICart[],
+  allProducts: IProduct[]
+) => {
+  return cartProducts.reduce((acc, currProduct) => {
+    const productInfo = allProducts.find((p) => p.id === currProduct.id);
+    if (productInfo) {
+      return acc + currProduct.quantity * productInfo.price;
+    }
+    return acc;
+  }, 0);
 };
 
 export const cartReducer = createReducer(
@@ -30,7 +46,6 @@ export const cartReducer = createReducer(
   on(CartsActions.loadCartSuccess, (state, { carts }) => ({
     ...state,
     productsInCart: carts,
-    // cartCount: calculateCartCount(carts),
     loaded: true,
   })),
   on(CartsActions.loadCartFailure, (state, { error }) => ({
@@ -42,7 +57,6 @@ export const cartReducer = createReducer(
     return {
       ...state,
       productsInCart: newProductsInCart,
-      //  cartCount: calculateCartCount(newProductsInCart),
     };
   }),
   on(CartsActions.updateProductQuantity, (state, { product }) => {
@@ -67,10 +81,18 @@ export const cartReducer = createReducer(
       return {
         ...state,
         productsInCart: updatedProducts,
-        // cartCount: calculateCartCount(updatedProducts),
       };
     }
 
     return state;
-  })
+  }),
+  on(
+    CartsActions.updateAmount,
+    (state, { amountBeforeTax, tax, totalAmount }) => ({
+      ...state,
+      amountBeforeTax: amountBeforeTax,
+      tax: tax,
+      totalAmount: totalAmount,
+    })
+  )
 );

@@ -31,3 +31,7 @@ export const updateProductQuantity = createAction(
   '[Cart] Update Product Quantity',
   props<{ product: ICart }>()
 );
+export const updateAmount = createAction(
+  '[Cart] Update Amount Info',
+  props<{ amountBeforeTax: number; tax: number; totalAmount: number }>()
+);

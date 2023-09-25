@@ -5,10 +5,16 @@ import * as CartsActions from './carts.actions';
 import * as CartsFeature from './carts.reducer';
 import { CartsFacade } from './carts.facade';
 import { ICart } from '../carts.models';
+import { ProductsFacade } from '../../product/+state/products.facade';
+import { IProduct } from '../../product/products.models';
 
 @Injectable()
 export class CartsEffects {
-  constructor(private actions$: Actions, private cartFacade: CartsFacade) {}
+  constructor(
+    private actions$: Actions,
+    private cartFacade: CartsFacade,
+    private productFacade: ProductsFacade
+  ) {}
 
   init$ = createEffect(() =>
     this.actions$.pipe(
@@ -50,4 +56,43 @@ export class CartsEffects {
       })
     )
   );
+  updateAmount$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(
+        CartsActions.addProductToCartSuccess,
+        CartsActions.updateProductQuantity
+      ),
+      withLatestFrom(
+        this.cartFacade.cartProducts$,
+        this.productFacade.allProducts$
+      ),
+      mergeMap(([, cartProducts, allProducts]) => {
+        const amountBeforeTax = this.calculateAmountBeforeTax(
+          cartProducts,
+          allProducts
+        );
+        const taxRate = 0.13;
+        const tax = amountBeforeTax * taxRate;
+        const totalAmount = amountBeforeTax + tax;
+
+        return of(
+          CartsActions.updateAmount({
+            amountBeforeTax,
+            tax,
+            totalAmount,
+          })
+        );
+      })
+    )
+  );
+
+  private calculateAmountBeforeTax(
+    cartProducts: ICart[],
+    allProducts: IProduct[]
+  ): number {
+    return cartProducts.reduce((total, product) => {
+      const productInfo = allProducts.find((p) => p.id === product.id);
+      return total + (productInfo ? productInfo.price * product.quantity : 0);
+    }, 0);
+  }
 }

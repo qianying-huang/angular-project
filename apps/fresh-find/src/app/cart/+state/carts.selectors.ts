@@ -19,7 +19,17 @@ export const selectCartError = createSelector(
   (state: CartState) => state.error
 );
 
-// export const selectCartCount = createSelector(
-//   selectCartState,
-//   (state: CartState) => state.cartCount
-// );
+export const selectAmountBeforeTax = createSelector(
+  selectCartState,
+  (state: CartState) => state.amountBeforeTax
+);
+
+export const selectTax = createSelector(
+  selectCartState,
+  (state: CartState) => state.tax
+);
+
+export const selectTotalAmount = createSelector(
+  selectCartState,
+  (state: CartState) => state.totalAmount
+);
