@@ -8,18 +8,12 @@ export const CARTS_FEATURE_KEY = 'carts';
 
 export interface CartState {
   productsInCart: ICart[];
-  amountBeforeTax: number;
-  tax: number;
-  totalAmount: number;
   loaded: boolean;
   error?: string | null;
 }
 
 export const initialCartState: CartState = {
   productsInCart: [],
-  amountBeforeTax: 0,
-  tax: 0,
-  totalAmount: 0,
   loaded: false,
 };
 
@@ -86,15 +80,7 @@ export const cartReducer = createReducer(
 
     return state;
   }),
-  on(
-    CartsActions.updateAmount,
-    (state, { amountBeforeTax, tax, totalAmount }) => ({
-      ...state,
-      amountBeforeTax: amountBeforeTax,
-      tax: tax,
-      totalAmount: totalAmount,
-    })
-  ),
+
   on(CartsActions.deleteProductFromCart, (state, { productId }) => {
     const updatedProducts = state.productsInCart.filter(
       (product) => product.id !== productId

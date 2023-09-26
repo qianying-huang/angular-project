@@ -1,9 +1,9 @@
 <div class="container mt-4">
   <h1>Shopping Cart</h1>
   <hr />
-  <div *ngIf="!(cartProductsDetails$ | async)?.length">
+  <ng-container *ngIf="!(cartProductsDetails$ | async)?.length">
     <p>Your cart is empty.</p>
-  </div>
+  </ng-container>
   <div class="cart-list">
     <ng-container *ngFor="let cartProduct of cartProductsDetails$ | async">
       <ng-container *ngIf="cartProduct">
@@ -46,9 +46,16 @@
       </ng-container>
     </ng-container>
   </div>
-  <div class="amount">
-    <p><strong>Amount Before Tax:</strong> ${{ amountBeforeTax$ | async }}</p>
-    <p><strong>Tax:</strong> ${{ tax$ | async }}</p>
-    <p><strong>Total Amount:</strong> ${{ totalAmount$ | async }}</p>
-  </div>
+  <ng-container *ngIf="(cartProductsDetails$ | async)?.length">
+    <div class="amount">
+      <p><strong>Amount Before Tax:</strong> ${{ amountBeforeTax$ | async }}</p>
+
+      <p><strong>Tax:</strong> ${{ tax$ | async }}</p>
+      <p><strong>Total Amount:</strong> ${{ totalAmount$ | async }}</p>
+
+      <button type="button" class="btn btn-warning" (click)="onCheckout()">
+        Checkout
+      </button>
+    </div></ng-container
+  >
 </div>

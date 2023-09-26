@@ -92,6 +92,7 @@ export class CartsEffects {
     allProducts: IProduct[]
   ): number {
     return cartProducts.reduce((total, product) => {
+      //accumulator + currentValue, initialValue
       const productInfo = allProducts.find((p) => p.id === product.id);
       return total + (productInfo ? productInfo.price * product.quantity : 0);
     }, 0);

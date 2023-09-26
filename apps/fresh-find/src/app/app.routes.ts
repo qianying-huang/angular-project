@@ -17,6 +17,11 @@ export const appRoutes: Route[] = [
           import('./cart/cart.module').then((m) => m.CartModule),
       },
       {
+        path: 'order',
+        loadChildren: () =>
+          import('./order/order.module').then((m) => m.OrderModule),
+      },
+      {
         path: '**',
         redirectTo: 'products',
         pathMatch: 'full',

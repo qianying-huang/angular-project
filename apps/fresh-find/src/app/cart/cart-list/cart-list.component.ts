@@ -4,6 +4,7 @@ import { Observable, combineLatest, map, withLatestFrom } from 'rxjs';
 import { ICart } from '../carts.models';
 import { ProductsFacade } from '../../product/+state/products.facade';
 import { IProduct, IProductWithQuantity } from '../../product/products.models';
+import { UUID } from 'angular2-uuid';
 
 @Component({
   selector: 'angular-project-cart-list',
@@ -56,5 +57,11 @@ export class CartListComponent {
   }
   public deleteProduct(productId: number): void {
     this.cartFacade.deleteProductFromCart(productId);
+  }
+  public onCheckout(): void {
+    const orderConfirmationNumber = UUID.UUID();
+    window.alert(
+      `Your order is confirmed! Order Confirmation Number: ${orderConfirmationNumber}`
+    );
   }
 }
