@@ -1,27 +1,31 @@
+import { loadCart } from './../../cart/+state/carts.actions';
 import { Injectable, inject } from '@angular/core';
 import { select, Store, Action } from '@ngrx/store';
 
 import * as OrdersActions from './orders.actions';
 import * as OrdersFeature from './orders.reducer';
 import * as OrdersSelectors from './orders.selectors';
+import { ProductsState } from '../../product/+state/products.reducer';
+import { Observable } from 'rxjs';
+import { IOrder } from '../order.models';
 
 @Injectable()
 export class OrdersFacade {
-  private readonly store = inject(Store);
+  public allOrders$: Observable<IOrder[]>;
 
-  /**
-   * Combine pieces of state using createSelector,
-   * and expose them as observables through the facade.
-   */
+  constructor(private store: Store<ProductsState>) {
+    this.allOrders$ = this.store.pipe(select(OrdersSelectors.selectAllOrders));
+  }
+
   loaded$ = this.store.pipe(select(OrdersSelectors.selectOrdersLoaded));
-  allOrders$ = this.store.pipe(select(OrdersSelectors.selectAllOrders));
+
   selectedOrders$ = this.store.pipe(select(OrdersSelectors.selectEntity));
 
-  /**
-   * Use the initialization action to perform one
-   * or more tasks in your Effects.
-   */
-  init() {
+  public loadOrders(): void {
     this.store.dispatch(OrdersActions.initOrders());
+  }
+
+  public addOrder(order: IOrder) {
+    this.store.dispatch(OrdersActions.addOrder({ order }));
   }
 }

@@ -60,4 +60,8 @@ export class CartsFacade {
   public deleteProductFromCart(productId: number): void {
     this.store.dispatch(CartActions.deleteProductFromCart({ productId }));
   }
+
+  public clearCart(): void {
+    this.store.dispatch(CartActions.clearCart());
+  }
 }

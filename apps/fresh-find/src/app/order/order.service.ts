@@ -15,6 +15,6 @@ export class OrderService {
   }
 
   addOrder(newOrder: IOrder): Observable<IOrder> {
-    return this.http.post<IOrder>(`${this.dbUrl}/${newOrder.id}`, newOrder);
+    return this.http.post<IOrder>(this.dbUrl, newOrder);
   }
 }

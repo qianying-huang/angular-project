@@ -7,6 +7,8 @@ import * as fromOrders from './+state/orders.reducer';
 import { OrdersEffects } from './+state/orders.effects';
 import { OrdersFacade } from './+state/orders.facade';
 import { OrderRoutingModule } from './order-routing.module';
+import { ProductModule } from '../product/product.module';
+import { ProductsFacade } from '../product/+state/products.facade';
 
 @NgModule({
   declarations: [OrderComponent],
@@ -20,6 +22,6 @@ import { OrderRoutingModule } from './order-routing.module';
     EffectsModule.forFeature([OrdersEffects]),
   ],
   exports: [OrderComponent],
-  providers: [OrdersFacade],
+  providers: [OrdersFacade, ProductsFacade],
 })
 export class OrderModule {}

@@ -1,1 +1,32 @@
-<p>order works!</p>
+<!-- {{ allOrders$ | async | json }} -->
+<div class="container mt-4">
+  <ng-container *ngFor="let order of allOrdersWithDetails$ | async">
+    <div class="card mb-3">
+      <div class="card-header">Order ID: {{ order.id }}</div>
+      <div class="card-body">
+        <ng-container *ngFor="let product of order.productsInOrder">
+          <div class="d-flex align-items-center mb-3">
+            <img
+              [src]="product.thumbnail"
+              alt="{{ product.title }}"
+              class="product-thumbnail mr-3"
+            />
+            <div>
+              <h4 class="mb-1">{{ product.title }}</h4>
+              <p class="mb-0">Price: ${{ product.price }}</p>
+              <p>Quantity: {{ product.quantity }}</p>
+            </div>
+          </div>
+        </ng-container>
+        <hr />
+        <div class="amount-details">
+          <p>
+            <strong>Amount Before Tax:</strong> ${{ order.amountBeforeTax }}
+          </p>
+          <p><strong>Tax:</strong> ${{ order.tax }}</p>
+          <p><strong>Total Amount:</strong> ${{ order.totalAmount }}</p>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>

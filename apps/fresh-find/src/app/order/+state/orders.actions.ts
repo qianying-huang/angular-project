@@ -12,3 +12,18 @@ export const loadOrdersFailure = createAction(
   '[Orders/API] Load Orders Failure',
   props<{ error: any }>()
 );
+
+export const addOrder = createAction(
+  '[Cart] Add Order',
+  props<{ order: IOrder }>()
+);
+
+export const addOrderSuccess = createAction(
+  '[Cart] Add Order Success',
+  props<{ order: IOrder }>()
+);
+
+export const addOrderFailure = createAction(
+  '[Cart] Add Order Failure',
+  props<{ error: any }>()
+);

@@ -37,7 +37,10 @@ const reducer = createReducer(
   on(OrdersActions.loadOrdersFailure, (state, { error }) => ({
     ...state,
     error,
-  }))
+  })),
+  on(OrdersActions.addOrderSuccess, (state, { order }) =>
+    ordersAdapter.addOne(order, state)
+  )
 );
 
 export function ordersReducer(state: OrdersState | undefined, action: Action) {

@@ -61,5 +61,6 @@ export class ProductListComponent implements OnInit {
       quantity: 1,
     };
     this.cartFacade.addProductToCart(cartProduct);
+    // this.cartFacade.clearCart();
   }
 }

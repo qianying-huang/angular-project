@@ -17,19 +17,6 @@ export const initialCartState: CartState = {
   loaded: false,
 };
 
-const calculateAmountBeforeTax = (
-  cartProducts: ICart[],
-  allProducts: IProduct[]
-) => {
-  return cartProducts.reduce((acc, currProduct) => {
-    const productInfo = allProducts.find((p) => p.id === currProduct.id);
-    if (productInfo) {
-      return acc + currProduct.quantity * productInfo.price;
-    }
-    return acc;
-  }, 0);
-};
-
 export const cartReducer = createReducer(
   initialCartState,
   on(CartsActions.loadCart, (state) => ({
@@ -88,6 +75,12 @@ export const cartReducer = createReducer(
     return {
       ...state,
       productsInCart: updatedProducts,
+    };
+  }),
+  on(CartsActions.clearCart, (state) => {
+    return {
+      ...state,
+      productsInCart: [],
     };
   })
 );

@@ -1,11 +1,14 @@
 import { ICart } from '../cart/carts.models';
+import { IProductWithQuantity } from '../product/products.models';
 
-/**
- * Interface for the 'Orders' data
- */
 export interface IOrder {
   id: string;
-  productsInCart: ICart[];
+  productsInOrder: ICart[];
+}
+
+export interface IOrderWithDetails {
+  id: string;
+  productsInOrder: IProductWithQuantity[];
   amountBeforeTax: number;
   tax: number;
   totalAmount: number;

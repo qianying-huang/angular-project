@@ -9,6 +9,7 @@ import * as fromCarts from './+state/carts.reducer';
 import { CartsEffects } from './+state/carts.effects';
 import { CartsFacade } from './+state/carts.facade';
 import { ProductsFacade } from '../product/+state/products.facade';
+import { OrderModule } from '../order/order.module';
 
 @NgModule({
   declarations: [CartListComponent],
@@ -17,6 +18,7 @@ import { ProductsFacade } from '../product/+state/products.facade';
     CartRoutingModule,
     StoreModule.forFeature(fromCarts.CARTS_FEATURE_KEY, fromCarts.cartReducer),
     EffectsModule.forFeature([CartsEffects]),
+    OrderModule,
   ],
   providers: [CartsFacade, ProductsFacade],
 })
