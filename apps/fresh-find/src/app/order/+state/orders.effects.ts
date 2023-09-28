@@ -25,7 +25,7 @@ export class OrdersEffects {
   addOrder$ = createEffect(() =>
     this.actions$.pipe(
       ofType(OrdersActions.addOrder),
-      mergeMap(({ order }) =>
+      switchMap(({ order }) =>
         this.orderService.addOrder(order).pipe(
           map((order) => OrdersActions.addOrderSuccess({ order })),
           catchError((error) => of(OrdersActions.addOrderFailure({ error })))

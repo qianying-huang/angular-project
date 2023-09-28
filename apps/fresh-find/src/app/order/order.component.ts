@@ -53,6 +53,7 @@ export class OrderComponent implements OnInit {
               acc + (product?.price || 0) * (product?.quantity || 0),
             0
           );
+
           const tax = amountBeforeTax * 0.13;
           const totalAmount = amountBeforeTax + tax;
           return {

@@ -24,7 +24,6 @@ import { OrderModule } from '../order/order.module';
     ),
     EffectsModule.forFeature([ProductsEffects]),
     CartModule,
-    OrderModule,
   ],
   providers: [ProductsFacade, ProductService],
 })

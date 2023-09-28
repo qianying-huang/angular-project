@@ -74,6 +74,8 @@ export class CartListComponent {
         productsInOrder: cartProducts,
       };
       this.orderFacade.addOrder(newOrder);
+
+      this.cartFacade.clearCart();
     });
   }
 }
