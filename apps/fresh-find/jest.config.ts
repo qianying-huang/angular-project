@@ -19,4 +19,10 @@ export default {
     'jest-preset-angular/build/serializers/ng-snapshot',
     'jest-preset-angular/build/serializers/html-comment',
   ],
+  testMatch: [
+    '**/*product*list*.spec.ts',
+    '**/*product*service*.spec.ts',
+    '**/*cart*list*.spec.ts',
+    '**/*products*effects*.spec.ts',
+  ],
 };

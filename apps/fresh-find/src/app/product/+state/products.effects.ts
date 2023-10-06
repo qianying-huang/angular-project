@@ -1,18 +1,15 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { switchMap, catchError, of, mergeMap, map, tap } from 'rxjs';
 import * as ProductsActions from './products.actions';
-import * as ProductsFeature from './products.reducer';
 import { ProductService } from '../product.service';
-import { ProductsFacade } from './products.facade';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class ProductsEffects {
   constructor(
     private actions$: Actions,
     private productService: ProductService,
-    private productsFacade: ProductsFacade,
     private router: Router
   ) {}
 
